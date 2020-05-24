@@ -1,22 +1,33 @@
-import {VIEW_ALL, ADD_TYPE, EDIT_TYPE , DELETE_TYPE } from "../actionTypes";
+import {VIEW_ALL, ADD_TYPE, EDIT_TYPE , DELETE_TYPE, ADD_INVENTORY } from "../actionTypes";
 import inventoryInitialState from "../InventoryInitialState";
 
 export default function inventoryReducer(state = inventoryInitialState, action){
-    switch(action.type){
+    console.log('action', action);
+    switch(action.type){        
         case VIEW_ALL:{
-            return Object.assign(state, action.viewAll);
+            return [...state];
         }
-        case DELETE_TYPE:{            
-            var newState=state;
-            if(state.length>1){
-                newState = state.splice(action.inventoryIndex, 1);
+        case ADD_INVENTORY:{
+            return [ 
+                ...state,
+                action.inventory
+            ]
+        }
+        case DELETE_TYPE:{ 
+            if(action.keys[0]=="Bulldozers"||action.keys[0]=="Chainsaws"){
+            state.filter(function(item){
+                   return item.InventoryName == action.keys[0];         
+                 });
+                state.splice(action.keys[1], 1);
             }else{
-                newState=[];
+               state.splice(action.keys[1], 1);                
             }
-            return newState;
+            console.log('state:', state);
+            return [...state];
+             
         }
         default:
-        return inventoryInitialState;
+        return state;
     }
 }
 

@@ -1,4 +1,4 @@
-import {VIEW_ALL, ADD_TYPE, EDIT_TYPE , DELETE_TYPE } from "../actionTypes";
+import {VIEW_ALL, ADD_TYPE, EDIT_TYPE , DELETE_TYPE, ADD_INVENTORY } from "../actionTypes";
 
 export function viewInventory(inventory){
     return{
@@ -6,10 +6,16 @@ export function viewInventory(inventory){
         inventory:inventory
     };
 };
-export function deleteInventory(inventory){
+export function deleteInventory(obj){
     return{
         type:DELETE_TYPE,
-        inventoryIndex:inventory
+        keys:obj
+    };
+};
+export function insertInventory(inventory){
+    return{
+        type:ADD_INVENTORY,
+        inventory:inventory
     };
 };
 export default{
